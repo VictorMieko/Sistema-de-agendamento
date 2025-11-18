@@ -18,7 +18,7 @@ class NewAppointmentController:
     def schedule_appointment(self, new_appointment_information: Dict) -> Dict:
         try:
             self.__validate_fields(new_appointment_information)
-            person_obj = self.__validate_bussines_rules(new_appointment_information)
+            person_obj = self.__validate_business_rules(new_appointment_information)
             new_appointment = self.__register_appointment_in_repository(person_obj, new_appointment_information)   
             self.__notification_service.send_notification(new_appointment)         
             response = self.__format_response(new_appointment)
@@ -30,13 +30,16 @@ class NewAppointmentController:
         if not isinstance (new_appointment_information["name"], str):
             raise Exception("Campo 'nome do paciente' incorreto.")
         
-        try: datetime.strptime(new_appointment_information["appointment_date"], "%d/%m")
+        current_year = datetime.now().year
+        try: 
+            date_str = new_appointment_information["appointment_date"]
+            datetime.strptime(f"{date_str}/{current_year}", "%d/%m/%Y")
         except ValueError: raise Exception("Campo 'data da consulta' incorreto. Use o formato DD")
 
         try: datetime.strptime(new_appointment_information["appointment_time"], "%H:%M")
         except ValueError: raise Exception("Campo 'hora da consulta' incorreto. Use o formato HH:MM.")
 
-    def __validate_bussines_rules(self, new_appointment_information: Dict) -> Person:
+    def __validate_business_rules(self, new_appointment_information: Dict) -> Person:
         name = new_appointment_information["name"]
         date = new_appointment_information["appointment_date"]
         time = new_appointment_information["appointment_time"]

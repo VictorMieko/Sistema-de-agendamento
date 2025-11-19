@@ -33,15 +33,18 @@ class NewAppointmentController:
         current_year = datetime.now().year
         try: 
             date_str = new_appointment_information["appointment_date"]
-            datetime.strptime(f"{date_str}/{current_year}", "%d/%m/%Y")
+            date_obj = datetime.strptime(f"{date_str}/{current_year}", "%d/%m/%Y")
         except ValueError: raise Exception("Campo 'data da consulta' incorreto. Use o formato DD")
 
         try: datetime.strptime(new_appointment_information["appointment_time"], "%H:%M")
         except ValueError: raise Exception("Campo 'hora da consulta' incorreto. Use o formato HH:MM.")
 
+        is_weekday = date_obj.weekday()
+        if is_weekday >= 5: raise Exception("Não é possível marcar em finais de semana. Escolha um dia útil.")
+
     def __validate_business_rules(self, new_appointment_information: Dict) -> Person:
         name = new_appointment_information["name"]
-        date = new_appointment_information["appointment_date"]
+        date = (new_appointment_information["appointment_date"])
         time = new_appointment_information["appointment_time"]
 
         if not name or not date or not time:
@@ -52,9 +55,6 @@ class NewAppointmentController:
 
         existing_appointment = self.__appointment_repository.check_appointments_by_patient_date(date, time)
         if existing_appointment: raise Exception("Já existe uma consulta agendada para esse paciente.")
-        
-        #existing_appointment_date = self.__appointment_repository.check_appointments_by_patient_date(new_appointment_information["appointment_date"], new_appointment_information["appointment_time"])
-        #if existing_appointment_date: raise Exception("Já existe uma consulta agendada para essa data.")
 
         return person
 

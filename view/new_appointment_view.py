@@ -6,12 +6,14 @@ class NewAppointmentView:
         os.system('cls || clear')
 
         print("=== Agendamento de Consulta ===\n")
-        name = input("Nome do paciente: ")
+        name = input("Nome do paciente: ")        
+        doctor_name = input("Nome do Médico: ")
         appointment_date = input("Data da consulta (DD/MM): ")
         appointment_time = input("Hora da consulta (HH:MM): ")
 
         appointment_information = {
             "name": name,
+            "doctor_name": doctor_name,
             "appointment_date": appointment_date,
             "appointment_time": appointment_time
         }
@@ -25,6 +27,7 @@ class NewAppointmentView:
             === Consulta Agendada com Sucesso ===
 
             Paciente: {message['name']}
+            Nome do Médico: {message['doctor_name']}
             Data: {message['appointment_date']}
             Hora: {message['appointment_time']}
         """

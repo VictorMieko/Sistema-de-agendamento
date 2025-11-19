@@ -30,6 +30,9 @@ class NewAppointmentController:
         if not isinstance (new_appointment_information["name"], str):
             raise Exception("Campo 'nome do paciente' incorreto.")
         
+        if not isinstance(new_appointment_information["doctor_name"], str):
+            raise Exception("Campo 'nome do Médico' incorreto.")
+        
         current_year = datetime.now().year
         try: 
             date_str = new_appointment_information["appointment_date"]
@@ -66,10 +69,11 @@ class NewAppointmentController:
         return person
 
     def __register_appointment_in_repository(self, person: Person, new_appointment_information: Dict) -> Appointment:
+        doctor_name = new_appointment_information["doctor_name"]
         appointment_date = new_appointment_information["appointment_date"]
         appointment_time = new_appointment_information["appointment_time"]
 
-        new_appointment = Appointment(person, appointment_date, appointment_time)
+        new_appointment = Appointment(person, doctor_name, appointment_date, appointment_time)
         self.__appointment_repository.register_appointment(new_appointment)
 
         return new_appointment
@@ -77,6 +81,7 @@ class NewAppointmentController:
     def __format_response(self, appointment: Appointment) -> Dict:
         response = {
             "name": appointment.name,
+            "doctor_name": appointment.doctor_name,
             "appointment_date": appointment.appointment_date,
             "appointment_time": appointment.appointment_time,
         }

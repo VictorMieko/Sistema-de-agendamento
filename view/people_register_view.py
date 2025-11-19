@@ -9,10 +9,10 @@ class RegisterPeopleView:
         print("=== Formulario de consulta ===")
         name = input("Nome: ")
         age = input("Idade: ")
-        sex = input("Sexo: ")
-        cpf = input("CPF: ")
+        sex = input("Sexo (Ex: 'm' ou 'f'): ")
+        cpf = input("CPF (Ex: 123.456.789-00): ")
         address = input("Endereço: ")
-        phone = input("Telefone: ")
+        phone = input("Telefone (Ex: 12345-6789): ")
 
         new_person_information = {
             "name": name, "age": age, "sex": sex, "cpf": cpf,

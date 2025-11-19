@@ -26,6 +26,9 @@ class PeopleRegisterController:
         if int(new_person_information["age"]) <= 0:
             raise Exception("Campo 'idade' deve ser maior que zero.")
         
+        if int(new_person_information["age"]) >= 100:
+            raise Exception("Campo 'idade' deve ser menor que zero.")
+        
         if not isinstance (new_person_information["sex"], str):
             raise Exception("Campo 'sexo' incorreto.")
         
@@ -35,11 +38,15 @@ class PeopleRegisterController:
         if len(str(new_person_information["cpf"])) != 14:
             raise Exception("Campo 'cpf' deve conter 14 dígitos (incluindo pontos e traços). ")
         
+        cpf = new_person_information["cpf"]
+        if "." not in cpf or "-" not in cpf:
+            raise Exception("CPF inválido. Por favor, inclua '.' e '-' (Ex: 123.456.789-00)")
+                
         try: int(new_person_information["phone"])
         except: raise Exception("Campo 'telefone' incorreto.")
 
         if len(str(new_person_information["phone"])) < 11:
-            raise Exception("Campo 'telefone' deve conter no mínimo 11 dígitos.")
+            raise Exception("Campo 'telefone' deve conter no mínimo 10 dígitos.")
 
     # método para registrar a pessoa no repositório 
     def __register_person_in_repository(self, new_person_information: Dict) -> None:

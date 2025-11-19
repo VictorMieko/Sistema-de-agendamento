@@ -1,5 +1,5 @@
 from typing import Dict
-from datetime import datetime
+from datetime import datetime, time
 from models.entities.appointement import Appointment
 from models.entities.person import Person
 from models.interfaces.appointment_repository_interface import AppointmentRepositoryInterface
@@ -45,16 +45,23 @@ class NewAppointmentController:
     def __validate_business_rules(self, new_appointment_information: Dict) -> Person:
         name = new_appointment_information["name"]
         date = (new_appointment_information["appointment_date"])
-        time = new_appointment_information["appointment_time"]
+        appoint_time = new_appointment_information["appointment_time"]
 
-        if not name or not date or not time:
+        if not name or not date or not appoint_time:
             raise Exception("Todos os campos são obrigatórios para agendar uma consulta.")
 
         person = self.__person_repository.find_person_by_name(name)
         if not person: raise Exception("Paciente não encontrado no repositório. Por favor, registre o paciente antes de agendar a consulta.")
 
-        existing_appointment = self.__appointment_repository.check_appointments_by_patient_date(date, time)
+        existing_appointment = self.__appointment_repository.check_appointments_by_patient_date(date, appoint_time)
         if existing_appointment: raise Exception("Já existe uma consulta agendada para esse paciente.")
+
+        appoint_time_obj = datetime.strptime(appoint_time, "%H:%M").time()
+        start_hour = time(8, 0)
+        end_hour = time(18, 0)
+
+        if appoint_time_obj < start_hour or appoint_time_obj > end_hour:
+            raise Exception("Horário inválido. O horário comercial é das 08:00 às 18:00.")
 
         return person
 

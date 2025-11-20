@@ -5,6 +5,7 @@ def introduction_page():
     [1] - Cadastrar novo cliente 
     [2] - procurar procurar paciente por CPF
     [3] - Agendar nova consulta
+    [4] - Listar consultas marcadas
     [0] - Sair do sistema
     """
 

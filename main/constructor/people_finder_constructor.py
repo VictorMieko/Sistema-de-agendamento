@@ -9,7 +9,7 @@ def people_finder_constructor(repository_interface: PersonRepositoryInterface):
 
     # chama a view para buscar as pessoas
     person_finder_information = people_finder_view.find_people_view()
-    response = people_finder_controller.find_by_name(person_finder_information)
+    response = people_finder_controller.find_by_cpf(person_finder_information)
 
     if response["success"]:
         people_finder_view.find_person_success(response["message"])

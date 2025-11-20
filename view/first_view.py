@@ -3,7 +3,7 @@ def introduction_page():
     Seja bem vindo ao sistema de agendamento de consultas!
     Escolha uma das opções abaixo:
     [1] - Cadastrar novo cliente 
-    [2] - procurar consulta por nome de paciente
+    [2] - procurar procurar paciente por CPF
     [3] - Agendar nova consulta
     [0] - Sair do sistema
     """

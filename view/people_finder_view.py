@@ -6,10 +6,10 @@ class PeopleFinderView:
         os.system('cls || clear')
 
         print("=== Consulta de Pessoas ===\n")
-        name = input("Nome da pessoa a ser consultada: ")
+        cpf = input("CPF da pessoa a ser consultada: ")
 
         people_finder_information = {
-            "name": name
+            "cpf": cpf
         }
 
         return people_finder_information
@@ -20,8 +20,6 @@ class PeopleFinderView:
         success_message = f"""
             === Pessoa Encontrada ===
 
-            Tipo: {message['type']}
-            Registros: {message['count']}
             Informações:
                 Nome: {message['informações']['Nome']}
                 Idade: {message['informações']['Idade']}

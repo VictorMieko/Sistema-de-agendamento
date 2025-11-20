@@ -8,12 +8,6 @@ class AppointmentRepository(AppointmentRepositoryInterface):
 
     def register_appointment(self, appointment: Appointment) -> None:
         self.__appointments.append(appointment)
-
-    def find_person_by_name(self, patient_name: str) -> Optional[Appointment]:
-        for appointment in self.__appointments:
-            if appointment.name == patient_name:
-                return appointment
-        return None
     
     def check_appointments_by_patient_date(self, date: str, time: str) -> Optional[Appointment]:
         for appointment in self.__appointments:

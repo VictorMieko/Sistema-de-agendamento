@@ -8,5 +8,9 @@ class PersonRepositoryInterface(ABC):
         pass
 
     @abstractmethod
-    def find_person_by_name(self, name: str) -> Person | None:
+    def find_person_by_name(self, name: str) -> Optional[Person]:
+        pass
+
+    @abstractmethod
+    def find_person_by_cpf(self, cpf: str) -> Person | None:
         pass

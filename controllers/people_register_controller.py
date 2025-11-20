@@ -45,7 +45,7 @@ class PeopleRegisterController:
         try: int(new_person_information["phone"])
         except: raise Exception("Campo 'telefone' incorreto.")
 
-        if len(str(new_person_information["phone"])) < 11:
+        if len(str(new_person_information["phone"])) < 9:
             raise Exception("Campo 'telefone' deve conter no mínimo 10 dígitos.")
 
     # método para registrar a pessoa no repositório 

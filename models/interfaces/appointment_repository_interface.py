@@ -8,9 +8,5 @@ class AppointmentRepositoryInterface(ABC):
         pass
 
     @abstractmethod
-    def find_person_by_name(self, patient_name: str) -> Optional[Appointment]:
-        pass
-
-    @abstractmethod
     def check_appointments_by_patient_date(self, date: str, time: str) -> Optional[Appointment]:
         pass

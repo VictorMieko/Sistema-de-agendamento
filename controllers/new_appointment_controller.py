@@ -47,14 +47,20 @@ class NewAppointmentController:
 
     def __validate_business_rules(self, new_appointment_information: Dict) -> Person:
         name = new_appointment_information["name"]
+        cpf = new_appointment_information["cpf"]
         date = (new_appointment_information["appointment_date"])
         appoint_time = new_appointment_information["appointment_time"]
 
         if not name or not date or not appoint_time:
             raise Exception("Todos os campos são obrigatórios para agendar uma consulta.")
+        
+        person_name = self.__person_repository.find_person_by_name(name)
+        if not person_name: raise Exception("Nome do paciente não encontrado. Por favor, registre o paciente antes de agendar a consulta.")
 
-        person = self.__person_repository.find_person_by_name(name)
-        if not person: raise Exception("Paciente não encontrado no repositório. Por favor, registre o paciente antes de agendar a consulta.")
+        person_cpf = self.__person_repository.find_person_by_cpf(cpf)
+        if not person_cpf: raise Exception("CPF do paciente não encontrado. Por favor, registre o paciente antes de agendar a consulta.")
+
+        person_obj = person_cpf and person_name
 
         existing_appointment = self.__appointment_repository.check_appointments_by_patient_date(date, appoint_time)
         if existing_appointment: raise Exception("Já existe uma consulta agendada para esse paciente.")
@@ -66,9 +72,10 @@ class NewAppointmentController:
         if appoint_time_obj < start_hour or appoint_time_obj > end_hour:
             raise Exception("Horário inválido. O horário comercial é das 08:00 às 18:00.")
 
-        return person
+        return person_obj
 
     def __register_appointment_in_repository(self, person: Person, new_appointment_information: Dict) -> Appointment:
+        name = new_appointment_information["name"]
         doctor_name = new_appointment_information["doctor_name"]
         appointment_date = new_appointment_information["appointment_date"]
         appointment_time = new_appointment_information["appointment_time"]
@@ -81,6 +88,7 @@ class NewAppointmentController:
     def __format_response(self, appointment: Appointment) -> Dict:
         response = {
             "name": appointment.name,
+            "cpf": appointment.cpf,
             "doctor_name": appointment.doctor_name,
             "appointment_date": appointment.appointment_date,
             "appointment_time": appointment.appointment_time,

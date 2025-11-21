@@ -1,4 +1,8 @@
+import os
+
 def introduction_page():
+    os.system('cls || clear')
+
     message = """
     Seja bem vindo ao sistema de agendamento de consultas!
     Escolha uma das opções abaixo:

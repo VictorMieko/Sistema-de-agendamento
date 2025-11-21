@@ -12,7 +12,7 @@ class RegisterPeopleView:
         sex = input("Sexo (Ex: 'm' ou 'f'): ")
         cpf = input("CPF (Ex: 123.456.789-00): ")
         address = input("Endereço: ")
-        phone = input("Numero de telefone: ")
+        phone = input("Numero de telefone (Ex: 123456789): ")
 
         new_person_information = {
             "name": name, "age": age, "sex": sex, "cpf": cpf,

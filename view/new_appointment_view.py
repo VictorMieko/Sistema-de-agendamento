@@ -23,7 +23,7 @@ class NewAppointmentView:
         return appointment_information
     
     def appointment_success(self, message: Dict) -> None:
-        os.system('cls || clear')
+        #os.system('cls || clear')
 
         success_message = f"""
             === Consulta Agendada com Sucesso ===

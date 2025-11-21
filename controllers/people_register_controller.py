@@ -46,7 +46,7 @@ class PeopleRegisterController:
         except: raise Exception("Campo 'telefone' incorreto.")
 
         if len(str(new_person_information["phone"])) < 9:
-            raise Exception("Campo 'telefone' deve conter no mínimo 10 dígitos.")
+            raise Exception("Campo 'telefone' deve conter no mínimo 9 dígitos.")
 
     # método para registrar a pessoa no repositório 
     def __register_person_in_repository(self, new_person_information: Dict) -> None:

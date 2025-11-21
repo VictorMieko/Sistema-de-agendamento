@@ -4,13 +4,13 @@ from models.entities.appointement import Appointment
 from models.entities.person import Person
 from models.interfaces.appointment_repository_interface import AppointmentRepositoryInterface
 from models.interfaces.person_repository_interface import PersonRepositoryInterface
-from services.notification_console_service import NotificationConsoleService 
+from services.interface.notification_service_interface import NotificationServiceInterface
 
 class NewAppointmentController:
     def __init__(self, 
                 appointment_interface: AppointmentRepositoryInterface,
                 person_interface: PersonRepositoryInterface,
-                notification_service: NotificationConsoleService) -> None:
+                notification_service: NotificationServiceInterface) -> None:
         self.__appointment_repository = appointment_interface
         self.__person_repository = person_interface
         self.__notification_service = notification_service

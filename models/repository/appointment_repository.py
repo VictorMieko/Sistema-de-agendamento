@@ -19,6 +19,4 @@ class AppointmentRepository(AppointmentRepositoryInterface):
         return self.__appointments
     
 appointment_repository = AppointmentRepository()
-
-# return [appointment for appointment in self.__appointments if appointment.patient_name == patient_name]
     
